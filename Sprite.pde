@@ -37,8 +37,7 @@ class Sprite {
       image(this.image, x, y);
     }
   }
-  
+
   public void update() {
-    
   }
 }

@@ -5,12 +5,21 @@ boolean isFirstRun = true;
 Sprite player;
 ArrayList<Sprite> sprites = new ArrayList();
 
+AnimatedSprite animatedPlayer;
+
 void setup() {
   size(1024, 768);
 }
 
 void tb_load() {
   player = new Sprite("data/sprites/figure.png", sprites);
+  player.x = 100;
+  player.y = height - FLOOR_THICKNESS - 50;
+  
+  animatedPlayer = new AnimatedSprite("data/sprites/spritesheet.png", 50, 50);
+  animatedPlayer.x = 200;
+  animatedPlayer.y = height - FLOOR_THICKNESS - 50;
+  sprites.add(animatedPlayer);
 
   for (Sprite s : sprites) {
     s.load();
