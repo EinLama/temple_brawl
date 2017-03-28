@@ -38,6 +38,6 @@ class Sprite {
     }
   }
 
-  public void update() {
+  public void update(long time) {
   }
 }
