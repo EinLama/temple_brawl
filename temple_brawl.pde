@@ -17,19 +17,9 @@ void tb_load() {
   player.y = height - FLOOR_THICKNESS - 50;
   sprites.add(player);
 
-  ArrayList<AnimationStep> steps = new ArrayList();
-  steps.add(new AnimationStep(0, 150));
-  steps.add(new AnimationStep(1, 100));
-  steps.add(new AnimationStep(2, 150));
-  Animation anim = new Animation("walking", steps);
-  player.currentAnimation = anim;
-
   for (Sprite s : sprites) {
     s.load();
   }
-
-  anim.isLooping = true;
-  anim.start(true);
 }
 
 void draw() {

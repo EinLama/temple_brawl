@@ -7,6 +7,10 @@ class Animation {
 
   long currentTime;
 
+  public Animation() {
+    this(new ArrayList<AnimationStep>());
+  }
+
   public Animation(ArrayList<AnimationStep> steps) {
     this("", steps);
   } 
@@ -53,7 +57,7 @@ class Animation {
   public void update(long time) {
     AnimationStep step = getCurrentStep();
 
-    if (step != null && isRunning()) {
+    if (step != null && isRunning() && step.duration > 0) {
       if (time - currentTime >= step.duration) {
         nextStep();
         currentTime = System.currentTimeMillis();
@@ -71,5 +75,33 @@ class AnimationStep {
   public AnimationStep(int index, int duration) {
     this.index = index;
     this.duration = duration;
+  }
+}
+
+
+class AnimationFactory {
+  Animation anim;
+
+  public AnimationFactory() {
+    anim = new Animation();
+  }
+
+  public AnimationFactory setName(String name) {
+    anim.name = name;
+    return this;
+  }
+
+  public AnimationFactory addStep(int index, int duration) {
+    anim.steps.add(new AnimationStep(index, duration));
+    return this;
+  }
+
+  public AnimationFactory looping(boolean isLooping) {
+    anim.isLooping = isLooping;
+    return this;
+  }
+
+  public Animation build() {
+    return anim;
   }
 }
