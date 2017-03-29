@@ -1,8 +1,11 @@
 
 class Player extends AnimatedSprite {
-  final float ACCELERATION = 2, GRAVITY = 2;
+  final float ACCELERATION = 2.5, GRAVITY = 2, JUMP_ACCELERATION = 22;
+  final int DIRECTION_LEFT = 0, DIRECTION_RIGHT = 1;
+
   float velocityX, velocityY;
   boolean isJumping;
+  int direction = DIRECTION_RIGHT;
 
   PlayerInput input = new PlayerInput();
   HashMap<String, Animation> animations = new HashMap();
@@ -76,7 +79,7 @@ class Player extends AnimatedSprite {
 
   public void jump() {
     if (!isJumping) {
-      velocityY = -24f;
+      velocityY = -JUMP_ACCELERATION;
       isJumping = true;
     }
   }
@@ -92,31 +95,13 @@ class Player extends AnimatedSprite {
   public void update(long time) {
     super.update(time);
 
-    if (isJumping) {
-      if (velocityX > 0) {
-        setAnimation("jumpRight");
-      } else if (velocityX < 0) {
-        setAnimation("jumpLeft");
-      }
-    }
-
     if (input.isDown(LEFT)) {
       velocityX = -ACCELERATION;
-
-      if (!isJumping) {
-        setAnimation("walkLeft");
-      }
+      direction = DIRECTION_LEFT;
     } else if (input.isDown(RIGHT)) {
       velocityX = ACCELERATION;
-      if (!isJumping) {
-        setAnimation("walkRight");
-      }
+      direction = DIRECTION_RIGHT;
     } else if (!isJumping) {
-      if (velocityX > 0) {
-        setAnimation("standRight");
-      } else if (velocityX < 0) {
-        setAnimation("standLeft");
-      }
       velocityX = 0;
     } else {
       velocityX = 0;
@@ -127,6 +112,8 @@ class Player extends AnimatedSprite {
     x += velocityX;
     y += velocityY;
 
+    setAnimationForMovement();
+
     // Stick to ground, don't fall through it:
     if (isOnGround()) {
       isJumping = false; 
@@ -135,6 +122,30 @@ class Player extends AnimatedSprite {
       if (y >= floorPos) {
         y = floorPos;
         velocityY = 0;
+      }
+    }
+  }
+
+  private void setAnimationForMovement() {
+    boolean isMoving = velocityX != 0;
+
+    switch (direction) {
+    case DIRECTION_LEFT:
+      if (isJumping) {
+        setAnimation("jumpLeft");
+      } else if (isMoving) {
+        setAnimation("walkLeft");
+      } else {
+        setAnimation("standLeft");
+      }
+      break;
+    case DIRECTION_RIGHT:
+      if (isJumping) {
+        setAnimation("jumpRight");
+      } else if (isMoving) {
+        setAnimation("walkRight");
+      } else {
+        setAnimation("standRight");
       }
     }
   }
