@@ -31,7 +31,7 @@ class AnimatedSprite extends Sprite {
 
     tileIndex = 0;
   }
-  
+
   public void addTile(PImage newTile) {
     tiles.add(newTile);
     numberOfTiles = tiles.size();
@@ -52,6 +52,13 @@ class AnimatedSprite extends Sprite {
   public void load() {
     super.load();
     extractSprites();
+  }
+
+  public float getWidth() {
+    return tileWidth;
+  }
+  public float getHeight() {
+    return tileHeight;
   }
 
   public void draw() {

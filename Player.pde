@@ -95,7 +95,7 @@ class Player extends AnimatedSprite implements IKeyListener {
   }
 
   public float getGroundPos() {
-    return height - FLOOR_THICKNESS - image.height;
+    return height - FLOOR_THICKNESS - this.getHeight();
   }
 
   public boolean isOnGround() {

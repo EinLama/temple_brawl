@@ -3,8 +3,10 @@ final int FLOOR_THICKNESS = 20;
 boolean isFirstRun = true;
 
 ArrayList<Sprite> sprites = new ArrayList();
+ArrayList<Platform> platforms = new ArrayList();
 
 Player player;
+Platform ground;
 
 void setup() {
   size(1024, 768);
@@ -17,6 +19,14 @@ void tb_load() {
   player.y = height - FLOOR_THICKNESS - 50;
   player.y -= 100;
   sprites.add(player);
+
+  ground = new Platform(0, height - FLOOR_THICKNESS, width, FLOOR_THICKNESS);
+  sprites.add(ground);
+  platforms.add(ground);
+
+  Platform p1 = new Platform(300, height - 3 * FLOOR_THICKNESS, 150, FLOOR_THICKNESS);
+  sprites.add(p1);
+  platforms.add(p1);
 
   for (Sprite s : sprites) {
     s.load();
@@ -43,11 +53,6 @@ void tb_main_loop() {
 void tb_draw() {
   background(0);
 
-  // floor
-  fill(255);
-  strokeWeight(0);
-  rect(0, height - FLOOR_THICKNESS, width, FLOOR_THICKNESS);
-
   for (Sprite s : sprites) {
     s.draw();
   }
@@ -58,5 +63,13 @@ void tb_update() {
 
   for (Sprite s : sprites) {
     s.update(time);
+  }
+
+  for (Platform p : platforms) {
+    if (player.collidesWith(p)) {
+      p.g = 0;
+    } else {
+      p.g = 255;
+    }
   }
 }
