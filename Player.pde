@@ -1,5 +1,5 @@
 
-class Player extends AnimatedSprite {
+class Player extends AnimatedSprite implements IKeyListener {
   final float ACCELERATION = 3, GRAVITY = 1.5f, JUMP_ACCELERATION = 20;
   final int DIRECTION_LEFT = 0, DIRECTION_RIGHT = 1;
 
@@ -19,6 +19,8 @@ class Player extends AnimatedSprite {
   }
 
   private void setup() {
+    input.addListener(this);
+
     ImageUtils imgUtils = new ImageUtils();
     addTile(imgUtils.flipHorizontally(tiles.get(0)));
     addTile(imgUtils.flipHorizontally(tiles.get(1)));
@@ -79,16 +81,13 @@ class Player extends AnimatedSprite {
     setAnimation(animations.get(animationName));
   }
 
-  public void jump() {
+  public void jumpKeyPressed() {
     if (!isJumping) {
       velocityY = -JUMP_ACCELERATION;
       isJumping = true;
-    } else {
-      // already jumping, increase height
-      //velocityY -= JUMP_ACCELERATION;
     }
   }
-  
+
   public void jumpKeyReleased() {
     if (isJumping && velocityY < -JUMP_ACCELERATION / 3) {
       velocityY = -JUMP_ACCELERATION / 3;
@@ -164,9 +163,27 @@ class Player extends AnimatedSprite {
   public void setKeyDown(int key, boolean isDown) {
     input.setIsDown(key, isDown);
   }
+
+  public void onKeyDown(int key) {
+    if (key == UP) {
+      jumpKeyPressed();
+    }
+  }
+
+  public void onKeyUp(int key) {
+    if (key == UP) {
+      jumpKeyReleased();
+    }
+  }
+}
+
+interface IKeyListener {
+  public void onKeyDown(int key);
+  public void onKeyUp(int key);
 }
 
 class PlayerInput {
+  ArrayList<IKeyListener> listeners = new ArrayList();
   HashMap<Integer, Boolean> keys = new HashMap();
 
   public boolean isDown(int key) {
@@ -178,6 +195,28 @@ class PlayerInput {
   }
 
   public void setIsDown(int key, boolean isDown) {
+    if (isDown) {
+      if (!this.isDown(key)) {
+        for (IKeyListener lst : listeners) {
+          lst.onKeyDown(key);
+        }
+      }
+    } else {
+      for (IKeyListener lst : listeners) {
+        lst.onKeyUp(key);
+      }
+    }
+
     keys.put(key, isDown);
+  }
+
+  public void addListener(IKeyListener lst) {
+    if (!listeners.contains(lst)) {
+      listeners.add(lst);
+    }
+  }
+
+  public void removeListener(IKeyListener lst) {
+    listeners.remove(lst);
   }
 }

@@ -29,18 +29,10 @@ void draw() {
 
 void keyPressed() {
   player.setKeyDown(keyCode, true);
-
-  if (keyCode == UP) {
-    player.jump();
-  }
 }
 
 void keyReleased() {
   player.setKeyDown(keyCode, false);
-
-  if (keyCode == UP) {
-    player.jumpKeyReleased();
-  }
 }
 
 void tb_main_loop() {
