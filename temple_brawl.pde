@@ -37,6 +37,10 @@ void keyPressed() {
 
 void keyReleased() {
   player.setKeyDown(keyCode, false);
+
+  if (keyCode == UP) {
+    player.jumpKeyReleased();
+  }
 }
 
 void tb_main_loop() {

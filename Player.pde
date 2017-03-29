@@ -1,6 +1,6 @@
 
 class Player extends AnimatedSprite {
-  final float ACCELERATION = 2.5, GRAVITY = 2, JUMP_ACCELERATION = 22;
+  final float ACCELERATION = 3, GRAVITY = 1.5f, JUMP_ACCELERATION = 20;
   final int DIRECTION_LEFT = 0, DIRECTION_RIGHT = 1;
 
   float velocityX, velocityY;
@@ -83,6 +83,15 @@ class Player extends AnimatedSprite {
     if (!isJumping) {
       velocityY = -JUMP_ACCELERATION;
       isJumping = true;
+    } else {
+      // already jumping, increase height
+      //velocityY -= JUMP_ACCELERATION;
+    }
+  }
+  
+  public void jumpKeyReleased() {
+    if (isJumping && velocityY < -JUMP_ACCELERATION / 3) {
+      velocityY = -JUMP_ACCELERATION / 3;
     }
   }
 
