@@ -15,6 +15,7 @@ void tb_load() {
   player = new Player("data/sprites/spritesheet.png", 50, 50);
   player.x = 200;
   player.y = height - FLOOR_THICKNESS - 50;
+  player.y -= 100;
   sprites.add(player);
 
   for (Sprite s : sprites) {
@@ -27,21 +28,15 @@ void draw() {
 }
 
 void keyPressed() {
-  if (keyCode == LEFT) {
-    player.setKeyDown(LEFT, true);
-  }
-  if (keyCode == RIGHT) {
-    player.setKeyDown(RIGHT, true);
+  player.setKeyDown(keyCode, true);
+
+  if (keyCode == UP) {
+    player.jump();
   }
 }
 
 void keyReleased() {
-  if (keyCode == LEFT) {
-    player.setKeyDown(LEFT, false);
-  }
-  if (keyCode == RIGHT) {
-    player.setKeyDown(RIGHT, false);
-  }
+  player.setKeyDown(keyCode, false);
 }
 
 void tb_main_loop() {

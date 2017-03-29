@@ -2,7 +2,7 @@
 class AnimatedSprite extends Sprite {
   int tileWidth, tileHeight;
 
-  protected PImage[] tiles;
+  protected ArrayList<PImage> tiles = new ArrayList();
   protected int numberOfTiles, tileIndex;
 
   Animation currentAnimation;
@@ -23,13 +23,18 @@ class AnimatedSprite extends Sprite {
 
   protected void extractSprites() {
     numberOfTiles = image.width / tileWidth;
-    tiles = new PImage[numberOfTiles];
+    tiles = new ArrayList();
 
     for (int i=0; i != numberOfTiles; ++i) {
-      tiles[i] = image.get(tileWidth * i, 0, tileWidth, tileHeight);
+      tiles.add(image.get(tileWidth * i, 0, tileWidth, tileHeight));
     }
 
     tileIndex = 0;
+  }
+  
+  public void addTile(PImage newTile) {
+    tiles.add(newTile);
+    numberOfTiles = tiles.size();
   }
 
   public int getIndex() {
@@ -58,7 +63,7 @@ class AnimatedSprite extends Sprite {
       tileIndex = currentAnimation.getTileIndex();
     }
 
-    image(tiles[tileIndex], x, y);
+    image(tiles.get(tileIndex), x, y);
   }
 
   public void update(long time) {
