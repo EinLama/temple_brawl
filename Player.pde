@@ -19,38 +19,40 @@ class Player extends AnimatedSprite {
   }
 
   private void setup() {
-    animations.put("walkLeft", new AnimationFactory()
-      .addStep(0, 150)
-      .addStep(1, 100)
-      .addStep(2, 150)
-      .setName("walkLeft").looping(true).build());
-
-    animations.put("standLeft", new AnimationFactory()
-      .addStep(2, 0)
-      .setName("standLeft").build());
-
     ImageUtils imgUtils = new ImageUtils();
     addTile(imgUtils.flipHorizontally(tiles.get(0)));
     addTile(imgUtils.flipHorizontally(tiles.get(1)));
     addTile(imgUtils.flipHorizontally(tiles.get(2)));
 
+    animations.put("walkLeft", new AnimationFactory()
+      .addStep(0, 150)
+      .addStep(1, 100)
+      .addStep(2, 150)
+      .looping(true)
+      .build());
+
+    animations.put("standLeft", new AnimationFactory()
+      .addStep(2, 0)
+      .build());
+
     animations.put("walkRight", new AnimationFactory()
       .addStep(3, 150)
       .addStep(4, 100)
       .addStep(5, 150)
-      .setName("walkRight").looping(true).build());
+      .looping(true)
+      .build());
 
     animations.put("standRight", new AnimationFactory()
       .addStep(5, 0)
-      .setName("standRight").build());
+      .build());
 
     animations.put("jumpLeft", new AnimationFactory()
       .addStep(0, 0)
-      .setName("jumpLeft").build());
+      .build());
 
     animations.put("jumpRight", new AnimationFactory()
       .addStep(3, 0)
-      .setName("jumpRight").build());
+      .build());
   }
 
   public void load() {
