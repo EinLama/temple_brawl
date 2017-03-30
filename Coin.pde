@@ -1,4 +1,10 @@
 class Coin extends AnimatedSprite {
+  public Coin() {
+    setImagePath("data/sprites/coin.png");
+    tileWidth = 10;
+    tileHeight = 10;
+  }
+
   public Coin(PImage image, int tileWidth, int tileHeight) {
     super(image, tileWidth, tileHeight);
   }

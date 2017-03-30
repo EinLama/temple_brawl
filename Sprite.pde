@@ -10,6 +10,10 @@ class Sprite {
   public Sprite() {
   }
 
+  public Sprite(ArrayList<Sprite> spriteCollection) {
+    spriteCollection.add(this);
+  }
+
   public Sprite(PImage image, ArrayList<Sprite> spriteCollection) {
     this(image);
     spriteCollection.add(this);
@@ -21,13 +25,25 @@ class Sprite {
   }
 
   public Sprite(PImage image) {
-    this.image = image;
-    hasImage = true;
+    setImage(image);
   }
 
   public Sprite(String imagePath) {
-    this.imagePath = imagePath;
-    hasImage = true;
+    setImagePath(imagePath);
+  }
+
+  public void setImage(PImage img) {
+    image = img;
+    if (img != null) {
+      hasImage = true;
+    }
+  }
+
+  public void setImagePath(String path) {
+    imagePath = path;
+    if (path != null) {
+      hasImage = true;
+    }
   }
 
   public void load() {

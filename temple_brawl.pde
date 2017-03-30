@@ -14,7 +14,7 @@ void setup() {
 }
 
 void tb_load() {
-  player = new Player("data/sprites/spritesheet.png", 50, 50);
+  player = new Player();
   player.x = 200;
   player.y = height - FLOOR_THICKNESS - 50;
   player.y -= 100;
@@ -29,13 +29,13 @@ void tb_load() {
   platforms.add(p1);
 
   for (int i=0; i != 5; ++i) {
-    Coin c = new Coin("data/sprites/coin.png", 10, 10);
+    Coin c = new Coin();
     c.x = 600 + i * 30;
     c.y = height - FLOOR_THICKNESS - 25;
     sprites.add(c);
   }
 
-  Coin c = new Coin("data/sprites/coin.png", 10, 10);
+  Coin c = new Coin();
   c.x = width - 100;
   c.y = height - FLOOR_THICKNESS - 150;
   sprites.add(c);

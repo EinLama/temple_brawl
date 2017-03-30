@@ -8,6 +8,9 @@ class AnimatedSprite extends Sprite {
 
   Animation currentAnimation;
 
+  public AnimatedSprite() {
+  }
+
   public AnimatedSprite(PImage image, int tileWidth, int tileHeight) {
     super(image);
 

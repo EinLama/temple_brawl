@@ -9,6 +9,13 @@ class Player extends AnimatedSprite implements IKeyListener {
 
   PlayerInput input = new PlayerInput();
 
+  public Player() {
+    // default settings for this game
+    setImagePath("data/sprites/spritesheet.png");
+    tileWidth = 50;
+    tileHeight = 50;
+  }
+
   public Player(PImage image, int tileWidth, int tileHeight) {
     super(image, tileWidth, tileHeight);
   }
