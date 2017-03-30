@@ -8,7 +8,6 @@ class Player extends AnimatedSprite implements IKeyListener {
   int direction = DIRECTION_RIGHT;
 
   PlayerInput input = new PlayerInput();
-  HashMap<String, Animation> animations = new HashMap();
 
   public Player(PImage image, int tileWidth, int tileHeight) {
     super(image, tileWidth, tileHeight);
@@ -18,7 +17,7 @@ class Player extends AnimatedSprite implements IKeyListener {
     super(imagePath, tileWidth, tileHeight);
   }
 
-  private void setup() {
+  protected void setupAnimations() {
     input.addListener(this);
 
     ImageUtils imgUtils = new ImageUtils();
@@ -55,30 +54,6 @@ class Player extends AnimatedSprite implements IKeyListener {
     animations.put("jumpRight", new AnimationFactory()
       .addStep(3, 0)
       .build());
-  }
-
-  public void load() {
-    super.load();
-    this.setup();
-  }
-
-  public void setAnimation(Animation anim) {
-    if (anim != null && anim.equals(currentAnimation)) { 
-      return;
-    }
-
-    if (currentAnimation != null) {
-      currentAnimation.stop();
-    }
-
-    currentAnimation = anim;
-    if (anim != null) {
-      anim.start(true);
-    }
-  }
-
-  public void setAnimation(String animationName) {
-    setAnimation(animations.get(animationName));
   }
 
   public void jumpKeyPressed() {
@@ -161,7 +136,10 @@ class Player extends AnimatedSprite implements IKeyListener {
   }
 
   public void handleCollision(Sprite other) {
-    // do something useful
+    if (other instanceof Coin) {
+      System.out.println("COLLIDED WITH " + other);
+      other.isAlive = false;
+    }
   }
 
   public void setKeyDown(int key, boolean isDown) {

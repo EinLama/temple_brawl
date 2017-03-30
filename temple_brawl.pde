@@ -28,6 +28,18 @@ void tb_load() {
   sprites.add(p1);
   platforms.add(p1);
 
+  for (int i=0; i != 5; ++i) {
+    Coin c = new Coin("data/sprites/coin.png", 10, 10);
+    c.x = 600 + i * 30;
+    c.y = height - FLOOR_THICKNESS - 25;
+    sprites.add(c);
+  }
+
+  Coin c = new Coin("data/sprites/coin.png", 10, 10);
+  c.x = width - 100;
+  c.y = height - FLOOR_THICKNESS - 150;
+  sprites.add(c);
+
   for (Sprite s : sprites) {
     s.load();
   }
@@ -69,6 +81,10 @@ void tb_update() {
         p.g = 0;
       } else {
         p.g = 255;
+      }
+    } else {
+      if (player.collidesWith(s)) {
+        player.handleCollision(s);
       }
     }
 

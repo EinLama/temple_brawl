@@ -3,6 +3,7 @@ class AnimatedSprite extends Sprite {
   int tileWidth, tileHeight;
 
   protected ArrayList<PImage> tiles = new ArrayList();
+  HashMap<String, Animation> animations = new HashMap();
   protected int numberOfTiles, tileIndex;
 
   Animation currentAnimation;
@@ -49,9 +50,14 @@ class AnimatedSprite extends Sprite {
     tileIndex = index;
   }
 
+  protected void setupAnimations() {
+    // should override this in extended classes
+  }
+
   public void load() {
     super.load();
     extractSprites();
+    setupAnimations();
   }
 
   public float getWidth() {
@@ -61,8 +67,27 @@ class AnimatedSprite extends Sprite {
     return tileHeight;
   }
 
+  public void setAnimation(Animation anim) {
+    if (anim != null && anim.equals(currentAnimation)) { 
+      return;
+    }
+
+    if (currentAnimation != null) {
+      currentAnimation.stop();
+    }
+
+    currentAnimation = anim;
+    if (anim != null) {
+      anim.start(true);
+    }
+  }
+
+  public void setAnimation(String animationName) {
+    setAnimation(animations.get(animationName));
+  }
+
   public void draw() {
-    if (!this.isLoaded()) {
+    if (!this.isLoaded() || !isAlive) {
       return;
     }
 

@@ -5,6 +5,7 @@ class Sprite {
   float x, y;
 
   boolean hasImage;
+  boolean isAlive = true;
 
   public Sprite() {
   }
@@ -51,7 +52,7 @@ class Sprite {
   }
 
   public boolean collidesWith(Sprite other) {
-    if (other == null || other == this) { 
+    if (other == null || other == this || !isAlive || !other.isAlive) { 
       return false;
     }
 
@@ -74,7 +75,7 @@ class Sprite {
   }
 
   public void draw() {
-    if (this.isLoaded()) {
+    if (isAlive && this.isLoaded()) {
       image(this.image, x, y);
     }
   }
