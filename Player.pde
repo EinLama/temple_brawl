@@ -160,6 +160,10 @@ class Player extends AnimatedSprite implements IKeyListener {
     }
   }
 
+  public void handleCollision(Sprite other) {
+    // do something useful
+  }
+
   public void setKeyDown(int key, boolean isDown) {
     input.setIsDown(key, isDown);
   }

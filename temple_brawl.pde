@@ -62,14 +62,16 @@ void tb_update() {
   long time = System.currentTimeMillis();
 
   for (Sprite s : sprites) {
-    s.update(time);
-  }
-
-  for (Platform p : platforms) {
-    if (player.collidesWith(p)) {
-      p.g = 0;
-    } else {
-      p.g = 255;
+    if (s instanceof Platform) {
+      Platform p = (Platform) s;
+      if (player.collidesWith(p)) {
+        player.handleCollision(p);
+        p.g = 0;
+      } else {
+        p.g = 255;
+      }
     }
+
+    s.update(time);
   }
 }
