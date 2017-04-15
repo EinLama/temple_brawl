@@ -87,6 +87,14 @@ void tb_update() {
         player.handleCollision(s);
       }
     }
+    
+    // Mirror world bounds horizontally
+    if (player.x > width + player.getWidth()) {
+       player.x = -player.getWidth(); 
+    }
+    if (player.x < -player.getWidth()) {
+       player.x = width + player.getWidth(); 
+    }
 
     s.update(time);
   }
