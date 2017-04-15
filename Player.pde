@@ -145,7 +145,7 @@ class Player extends AnimatedSprite implements IKeyListener {
   public void handleCollision(Sprite other) {
     if (other instanceof Coin) {
       // simulate coin pickup -> remove it from screen:
-      other.isAlive = false;
+      other.destroy();
     }
   }
 

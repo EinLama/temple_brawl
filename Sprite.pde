@@ -102,4 +102,20 @@ class Sprite {
   public String toString() {
     return "<" + getClass().getSimpleName() + "\t" + x + "," + y + ":\t" + getWidth() + "x" + getHeight() + ">";
   }
+
+  public void destroy() {
+    this.isAlive = false;
+  }
+
+  public boolean collidesWith(float otherX, float otherY, float otherW, float otherH) {
+    return (this.x < otherX + otherW &&
+      this.x + this.getWidth() > otherX &&
+      this.y < otherY + otherH &&
+      this.y + this.getHeight() > otherY);
+  }
+
+  private static final float CLOSE_PADDING = 20;
+  public boolean isClose(float otherX, float otherY, float otherW, float otherH) {
+    return this.collidesWith(otherX - CLOSE_PADDING, otherY - CLOSE_PADDING, otherW + CLOSE_PADDING * 2, otherH + CLOSE_PADDING * 2);
+  }
 }

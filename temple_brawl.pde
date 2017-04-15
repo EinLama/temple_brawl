@@ -78,8 +78,13 @@ void tb_update() {
       Platform p = (Platform) s;
       if (player.collidesWith(p)) {
         player.handleCollision(p);
+        p.b = 255;
         p.g = 0;
+      } else if (player.isClose(p.x, p.y, p.getWidth(), p.getHeight())) {
+        p.b = 100;
+        p.g = 100;
       } else {
+        p.b = 255;
         p.g = 255;
       }
     } else {
@@ -87,13 +92,13 @@ void tb_update() {
         player.handleCollision(s);
       }
     }
-    
+
     // Mirror world bounds horizontally
     if (player.x > width + player.getWidth()) {
-       player.x = -player.getWidth(); 
+      player.x = -player.getWidth();
     }
     if (player.x < -player.getWidth()) {
-       player.x = width + player.getWidth(); 
+      player.x = width + player.getWidth();
     }
 
     s.update(time);
